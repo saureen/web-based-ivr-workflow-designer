@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 16, 2011 2:04:23 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping default-lazy="false">
+  <class catalog="ivrdb" name="com.velocity.ivr.model.CallDetails" table="CALLDETAILS">
+    <id name="callId" type="int">
+      <column name="callid"/>
+      <generator class="increment"/>
+    </id>
+    <property name="calledFrom" type="string">
+      <column length="20" name="calledFrom" not-null="true"/>
+    </property>
+    <property name="alternateNumber" type="string">
+      <column length="20" name="alternateNumber"/>
+    </property>
+    <property name="name" type="string">
+      <column length="50" name="name"/>
+    </property>
+    <property name="address1" type="string">
+      <column length="100" name="address1"/>
+    </property>
+    <property name="address2" type="string">
+      <column length="100" name="address2"/>
+    </property>
+    <property name="city" type="string">
+      <column length="50" name="city"/>
+    </property>
+    <property name="zip" type="java.lang.Integer">
+      <column name="zip"/>
+    </property>
+    <property name="country" type="string">
+      <column length="50" name="country"/>
+    </property>
+    <property name="email" type="string">
+      <column length="100" name="email"/>
+    </property>
+    <property name="status" type="int">
+      <column name="status" not-null="true"/>
+    </property>
+    <property name="comments" type="string">
+      <column length="65535" name="comments"/>
+    </property>
+    <property name="creationTime" type="timestamp">
+      <column length="0" name="creationtime" not-null="true"/>
+    </property>
+    <set inverse="true" name="callLogs">
+      <key>
+        <column name="callid" not-null="true"/>
+      </key>
+      <one-to-many class="com.velocity.ivr.model.CallLog"/>
+    </set>
+  </class>
+  <class catalog="ivrdb" name="com.velocity.ivr.model.CallLog" table="CALLLOG">
+    <composite-id class="com.velocity.ivr.model.CallLogId" name="id">
+      <key-property name="callId" type="int">
+        <column name="callid"/>
+      </key-property>
+      <key-property name="callTime" type="timestamp">
+        <column length="0" name="calltime"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="com.velocity.ivr.model.CallDetails" fetch="select" insert="false" name="callDetails" update="false">
+      <column name="callid" not-null="true"/>
+    </many-to-one>
+    <property name="log" type="binary">
+      <column name="log" not-null="true"/>
+    </property>
+    <property name="comment" type="string">
+      <column length="65535" name="comment"/>
+    </property>
+  </class>
+</hibernate-mapping>
