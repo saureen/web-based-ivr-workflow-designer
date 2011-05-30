@@ -1,0 +1,2 @@
+# Module com.workflow.ivr.web.widgetset.IvrWidgetset
+# RPC service class, partial path of RPC policy file
