@@ -7,6 +7,8 @@ import java.util.Map;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.user.client.ui.Composite;
@@ -75,6 +77,21 @@ public class VCanvas extends Composite implements Paintable {
 				client.updateVariable(paintableId, "mx", x, false);
 				client.updateVariable(paintableId, "my", y, false);
 				client.updateVariable(paintableId, "event", "mouseup", true);
+			}
+		});
+		
+		canvas.addMouseMoveHandler(new MouseMoveHandler() {
+			
+			public void onMouseMove(MouseMoveEvent event) {
+				if (client == null) {
+					return;
+				}
+
+				int x = event.getClientX() - getAbsoluteLeft();
+				int y = event.getClientY() - getAbsoluteTop();
+				client.updateVariable(paintableId, "mx", x, false);
+				client.updateVariable(paintableId, "my", y, false);
+				client.updateVariable(paintableId, "event", "mousemove", true);
 			}
 		});
 
