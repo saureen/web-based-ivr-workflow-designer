@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.impl.instruction;
+package com.ivr.workflow.impl.instruction;
 
-import com.velocity.ivr.workflow.impl.DefaultInstruction;
+import com.ivr.workflow.impl.DefaultInstruction;
 import java.util.Map;
 import org.asteriskjava.fastagi.AgiException;
 import org.asteriskjava.fastagi.BaseAgiScript;

@@ -3,16 +3,16 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.asterisk;
+package com.ivr.asterisk;
 
-import com.velocity.ivr.dao.CallDetailsDao;
-import com.velocity.ivr.dao.CallLogDao;
-import com.velocity.ivr.mail.MailService;
-import com.velocity.ivr.model.CallDetails;
-import com.velocity.ivr.model.CallLog;
-import com.velocity.ivr.model.CallLogId;
-import com.velocity.ivr.util.BeanRegistry;
-import com.velocity.ivr.util.Constants;
+import com.ivr.dao.CallDetailsDao;
+import com.ivr.dao.CallLogDao;
+import com.ivr.mail.MailService;
+import com.ivr.model.CallDetails;
+import com.ivr.model.CallLog;
+import com.ivr.model.CallLogId;
+import com.ivr.util.BeanRegistry;
+import com.ivr.util.Constants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

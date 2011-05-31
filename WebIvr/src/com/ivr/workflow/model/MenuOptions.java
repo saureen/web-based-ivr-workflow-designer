@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.model;
+package com.ivr.workflow.model;
 
 import java.util.Map;
 

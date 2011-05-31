@@ -3,15 +3,15 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.util;
+package com.ivr.util;
 
-import com.velocity.ivr.asterisk.AsteriskServer;
-import com.velocity.ivr.asterisk.IvrConfig;
-import com.velocity.ivr.dao.CallDetailsDao;
-import com.velocity.ivr.dao.CallLogDao;
-import com.velocity.ivr.mail.MailService;
-import com.velocity.ivr.scp.ScpService;
-import com.velocity.ivr.workflow.Workflow;
+import com.ivr.asterisk.AsteriskServer;
+import com.ivr.asterisk.IvrConfig;
+import com.ivr.dao.CallDetailsDao;
+import com.ivr.dao.CallLogDao;
+import com.ivr.mail.MailService;
+import com.ivr.scp.ScpService;
+import com.ivr.workflow.Workflow;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;

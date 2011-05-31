@@ -17,7 +17,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.velocity.ivr.asterisk.AsteriskServer;
+import com.ivr.asterisk.AsteriskServer;
 
 public class WorkflowDesigner extends CustomComponent {
 

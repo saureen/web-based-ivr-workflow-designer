@@ -3,11 +3,11 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.impl;
+package com.ivr.workflow.impl;
 
-import com.velocity.ivr.workflow.Step;
-import com.velocity.ivr.workflow.Workflow;
-import com.velocity.ivr.workflow.xml.WorkflowReader;
+import com.ivr.workflow.Step;
+import com.ivr.workflow.Workflow;
+import com.ivr.workflow.xml.WorkflowReader;
 import java.io.File;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;

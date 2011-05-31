@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.asterisk;
+package com.ivr.workflow.asterisk;
 
-import com.velocity.ivr.util.BeanRegistry;
-import com.velocity.ivr.workflow.Workflow;
+import com.ivr.util.BeanRegistry;
+import com.ivr.workflow.Workflow;
 import org.asteriskjava.fastagi.AgiChannel;
 import org.asteriskjava.fastagi.AgiException;
 import org.asteriskjava.fastagi.AgiRequest;

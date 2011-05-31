@@ -3,22 +3,22 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.xml;
+package com.ivr.workflow.xml;
 
-import com.velocity.ivr.workflow.Action;
-import com.velocity.ivr.workflow.Instruction;
-import com.velocity.ivr.workflow.Option;
-import com.velocity.ivr.workflow.Select;
-import com.velocity.ivr.workflow.Step;
-import com.velocity.ivr.workflow.impl.DefaultAction;
-import com.velocity.ivr.workflow.impl.DefaultOption;
-import com.velocity.ivr.workflow.impl.DefaultSelect;
-import com.velocity.ivr.workflow.impl.DefaultStep;
-import com.velocity.ivr.workflow.impl.instruction.Answer;
-import com.velocity.ivr.workflow.impl.instruction.GetData;
-import com.velocity.ivr.workflow.impl.instruction.HangUp;
-import com.velocity.ivr.workflow.impl.instruction.PlayAudio;
-import com.velocity.ivr.workflow.impl.instruction.PlayDigits;
+import com.ivr.workflow.Action;
+import com.ivr.workflow.Instruction;
+import com.ivr.workflow.Option;
+import com.ivr.workflow.Select;
+import com.ivr.workflow.Step;
+import com.ivr.workflow.impl.DefaultAction;
+import com.ivr.workflow.impl.DefaultOption;
+import com.ivr.workflow.impl.DefaultSelect;
+import com.ivr.workflow.impl.DefaultStep;
+import com.ivr.workflow.impl.instruction.Answer;
+import com.ivr.workflow.impl.instruction.GetData;
+import com.ivr.workflow.impl.instruction.HangUp;
+import com.ivr.workflow.impl.instruction.PlayAudio;
+import com.ivr.workflow.impl.instruction.PlayDigits;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
