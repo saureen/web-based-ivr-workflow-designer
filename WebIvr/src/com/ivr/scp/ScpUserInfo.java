@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.scp;
+package com.ivr.scp;
 
 import com.jcraft.jsch.UIKeyboardInteractive;
 import com.jcraft.jsch.UserInfo;

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.util;
+package com.ivr.util;
 
 /**
  *

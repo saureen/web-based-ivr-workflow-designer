@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow;
+package com.ivr.workflow;
 
 import java.util.Map;
 import org.asteriskjava.fastagi.BaseAgiScript;

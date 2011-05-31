@@ -1,4 +1,4 @@
-package com.velocity.ivr.model;
+package com.ivr.model;
 // Generated Jan 16, 2011 2:04:21 PM by Hibernate Tools 3.2.1.GA
 
 

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.mail;
+package com.ivr.mail;
 
 import java.io.File;
 import java.util.HashMap;

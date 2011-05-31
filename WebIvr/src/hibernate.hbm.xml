@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jan 16, 2011 2:04:23 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping default-lazy="false">
-  <class catalog="ivrdb" name="com.velocity.ivr.model.CallDetails" table="CALLDETAILS">
+  <class catalog="ivrdb" name="com.ivr.model.CallDetails" table="CALLDETAILS">
     <id name="callId" type="int">
       <column name="callid"/>
       <generator class="increment"/>
@@ -47,11 +47,11 @@
       <key>
         <column name="callid" not-null="true"/>
       </key>
-      <one-to-many class="com.velocity.ivr.model.CallLog"/>
+      <one-to-many class="com.ivr.model.CallLog"/>
     </set>
   </class>
-  <class catalog="ivrdb" name="com.velocity.ivr.model.CallLog" table="CALLLOG">
-    <composite-id class="com.velocity.ivr.model.CallLogId" name="id">
+  <class catalog="ivrdb" name="com.ivr.model.CallLog" table="CALLLOG">
+    <composite-id class="com.ivr.model.CallLogId" name="id">
       <key-property name="callId" type="int">
         <column name="callid"/>
       </key-property>
@@ -59,7 +59,7 @@
         <column length="0" name="calltime"/>
       </key-property>
     </composite-id>
-    <many-to-one class="com.velocity.ivr.model.CallDetails" fetch="select" insert="false" name="callDetails" update="false">
+    <many-to-one class="com.ivr.model.CallDetails" fetch="select" insert="false" name="callDetails" update="false">
       <column name="callid" not-null="true"/>
     </many-to-one>
     <property name="log" type="binary">

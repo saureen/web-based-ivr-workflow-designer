@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.dao;
+package com.ivr.dao;
 
-import com.velocity.ivr.model.CallDetails;
+import com.ivr.model.CallDetails;
 import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 

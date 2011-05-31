@@ -1,4 +1,4 @@
-package com.velocity.ivr.scp;
+package com.ivr.scp;
 
 /* -*-mode:java; c-basic-offset:2; indent-tabs-mode:nil -*- */
 import com.jcraft.jsch.*;

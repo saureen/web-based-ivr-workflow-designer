@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.xml;
+package com.ivr.workflow.xml;
 
-import com.velocity.ivr.workflow.Step;
+import com.ivr.workflow.Step;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;

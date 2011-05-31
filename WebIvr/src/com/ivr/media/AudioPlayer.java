@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.media;
+package com.ivr.media;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.impl;
+package com.ivr.workflow.impl;
 
-import com.velocity.ivr.workflow.Option;
+import com.ivr.workflow.Option;
 
 /**
  *

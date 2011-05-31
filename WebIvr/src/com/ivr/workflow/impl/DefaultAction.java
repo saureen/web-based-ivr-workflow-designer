@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 
-package com.velocity.ivr.workflow.impl;
+package com.ivr.workflow.impl;
 
-import com.velocity.ivr.workflow.Action;
-import com.velocity.ivr.workflow.Instruction;
+import com.ivr.workflow.Action;
+import com.ivr.workflow.Instruction;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;

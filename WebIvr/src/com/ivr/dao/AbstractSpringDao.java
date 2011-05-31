@@ -1,4 +1,4 @@
-package com.velocity.ivr.dao;
+package com.ivr.dao;
 
 import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
