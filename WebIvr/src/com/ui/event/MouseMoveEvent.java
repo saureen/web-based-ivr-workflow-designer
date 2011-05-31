@@ -20,7 +20,9 @@ public class MouseMoveEvent extends MouseEvent {
 	 */
 	public MouseMoveEvent(UIElement source, int x, int y) {
 		super(source);
-		this.type = Types.MOVE;
+		this.type = Type.MOVE;
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getX() {
