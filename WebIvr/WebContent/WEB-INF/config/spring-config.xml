@@ -54,16 +54,16 @@
 
     <aop:config proxy-target-class="true">
         <aop:pointcut id="defaultServiceOperation"
-                    expression="execution(* com.velocity.ivr.dao.*Dao.*(..))"/>
+                    expression="execution(* com.ivr.dao.*Dao.*(..))"/>
                     
         <aop:advisor pointcut-ref="defaultServiceOperation" advice-ref="defaultTxAdvice"/>
     </aop:config>
 
-    <bean id="callDetailsDao" class="com.velocity.ivr.dao.CallDetailsDao">
+    <bean id="callDetailsDao" class="com.ivr.dao.CallDetailsDao">
         <property name="sessionFactory" ref="factory"/>
     </bean>
 
-    <bean id="callLogDao" class="com.velocity.ivr.dao.CallLogDao">
+    <bean id="callLogDao" class="com.ivr.dao.CallLogDao">
         <property name="sessionFactory" ref="factory"/>
     </bean>
 
@@ -83,33 +83,33 @@
 
     </bean>
 
-    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+    <bean id="velocityEngine" class="org.springframework.ui.VelocityEngineFactoryBean">
         <property name="velocityProperties">
             <value>
             resource.loader=class
-            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            class.resource.loader.class=org.apache.runtime.resource.loader.ClasspathResourceLoader
             </value>
         </property>
     </bean>
 
-    <bean id="mailService" class="com.velocity.ivr.mail.MailService">
+    <bean id="mailService" class="com.ivr.mail.MailService">
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
     </bean>
 
-    <bean id="scpUserInfo" class="com.velocity.ivr.scp.ScpUserInfo">
+    <bean id="scpUserInfo" class="com.ivr.scp.ScpUserInfo">
         <property name="user" value="root"/>
         <property name="password" value="test123"/>
         <property name="passphrase" value=""/>
     </bean>
    
-    <bean id="scpService" class="com.velocity.ivr.scp.ScpService">
+    <bean id="scpService" class="com.ivr.scp.ScpService">
         <property name="host" value="kapil.homelinux.com"/>
         <property name="port" value="22"/>
         <property name="userInfo" ref="scpUserInfo"/>
     </bean>
 
-    <bean id="ivrConfig" class="com.velocity.ivr.asterisk.IvrConfig">
+    <bean id="ivrConfig" class="com.ivr.asterisk.IvrConfig">
         <property name="welcome" value="welcome"/>
         <property name="langMenu" value="lang-menu"/>
         <property name="invalidSelection" value="invalid-selection-"/>
@@ -134,11 +134,11 @@
         <property name="inputTimeOut" value="10000"/>
     </bean>
 
-    <bean id="workflowReader" class="com.velocity.ivr.workflow.xml.DefaultXmlReader">
+    <bean id="workflowReader" class="com.ivr.workflow.xml.DefaultXmlReader">
         
     </bean>
 
-    <bean id="workflow" class="com.velocity.ivr.workflow.impl.DefaultWorkflow">
+    <bean id="workflow" class="com.ivr.workflow.impl.DefaultWorkflow">
         <property name="defnXml">
             <value>config/asterisk/sample-workflow.xml</value>
         </property>
