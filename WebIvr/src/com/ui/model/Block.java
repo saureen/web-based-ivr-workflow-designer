@@ -4,6 +4,9 @@
 package com.ui.model;
 
 import com.ui.canvas.Canvas;
+import com.ui.event.MouseEvent;
+import com.vaadin.event.MouseEvents;
+import com.vaadin.ui.Component.Listener;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
@@ -21,6 +24,7 @@ public class Block implements UIElement {
 	private UIElement next;
 	private UIElement prev;
 	
+	
 	public Block(Canvas canvas, double startX, double startY, double endX, double endY){
 		this.canvas = canvas;
 		
@@ -35,6 +39,7 @@ public class Block implements UIElement {
 	public void draw() {
 		canvas.rect(startX, startY, endX-startX, endY-startY);
 		canvas.strokeRect(startX, startY, endX-startX, endY-startY);
+		canvas.addChild(this);
 	}
 
 	/* (non-Javadoc)
@@ -98,6 +103,37 @@ public class Block implements UIElement {
 	 */
 	public boolean contains(double x, double y) {
 		return startX <= x && x <= endX && startY <= y && y <= endY;
+	}
+	/* (non-Javadoc)
+	 * @see com.ui.model.UIElement#addListener(com.vaadin.ui.Component.Listener)
+	 */
+	public void addListener(Listener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+	/* (non-Javadoc)
+	 * @see com.ui.model.UIElement#fireMouseEvent(com.vaadin.event.MouseEvents)
+	 */
+	public void fireMouseEvent(MouseEvent event) {
+		if(event.getType() == MouseEvent.Types.DOWN){
+			
+		}else if(event.getType() == MouseEvent.Types.UP){
+			
+		}else if(event.getType() == MouseEvent.Types.MOVE){
+			double x = event.getX();
+			double y = event.getY();
+			
+			double deltaX = x-getCenterX();
+			double deltaY = y-getCenterY();
+			
+			startX += deltaX;
+			startY += deltaY;
+			
+			endX += deltaX;
+			endY += deltaY;
+			
+			this.draw();
+		}
 	}
 
 }

@@ -116,7 +116,7 @@ public class WorkflowDesigner extends CustomComponent {
 		
 		canvas.addListener(new Canvas.CanvasMouseUpListener() {
 
-			public void mouseDown(int x, int y) {
+			public void mouseUp(int x, int y) {
 				getWindow().showNotification(
 						"Mouse released at (" + x + "," + y + ")");
 			}
@@ -166,10 +166,10 @@ public class WorkflowDesigner extends CustomComponent {
 	private void drawStep(){
 		Block block = new Block(canvas, 100, 200, 300, 400);
 		block.draw();
-		block = new Block(canvas, 450, 550, 425, 525);
-		block.draw();
-		block = new Block(canvas, 600, 600, 700, 700);
-		block.draw();
+//		block = new Block(canvas, 450, 550, 425, 525);
+//		block.draw();
+//		block = new Block(canvas, 600, 600, 700, 700);
+//		block.draw();
 		canvas.fill();
 	}
 	

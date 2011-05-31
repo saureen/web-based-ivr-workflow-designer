@@ -3,6 +3,8 @@ package com.workflow.ivr.web.widgetset.client.ui;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -23,5 +25,9 @@ public class MouseHandlingCanvas extends GWTCanvas implements
 
 	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
 		return addDomHandler(handler, MouseUpEvent.getType());
+	}
+	
+	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+		return addDomHandler(handler, MouseMoveEvent.getType());
 	}
 }

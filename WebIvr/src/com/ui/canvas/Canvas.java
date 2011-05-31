@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ui.event.MouseDownEvent;
+import com.ui.event.MouseEvent;
+import com.ui.event.MouseMoveEvent;
+import com.ui.event.MouseUpEvent;
+import com.ui.model.UIElement;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
 import com.vaadin.ui.AbstractComponent;
@@ -30,6 +35,52 @@ public class Canvas extends AbstractComponent {
 	private final List<CanvasMouseDownListener> downListeners = new ArrayList<CanvasMouseDownListener>();
 
 	private final List<CanvasMouseUpListener> upListeners = new ArrayList<CanvasMouseUpListener>();
+	
+	private final List<CanvasMouseMoveListener> moveListeners = new ArrayList<CanvasMouseMoveListener>();
+	
+	private final List<UIElement> children = new ArrayList<UIElement>();
+	
+	private final Map<String, UIElement> childrenMap = new HashMap<String, UIElement>();
+	
+	public Canvas(){
+		super();
+		
+		this.downListeners.add(new CanvasMouseDownListener() {
+			
+			public void mouseDown(int x, int y) {
+				for(UIElement element: children){
+					if(element.contains(x, y)){
+						MouseEvent event = new MouseDownEvent(element, x, y);
+						element.fireMouseEvent(event);
+					}
+				}
+			}
+		});
+		
+		this.upListeners.add(new CanvasMouseUpListener() {
+			
+			public void mouseUp(int x, int y) {
+				for(UIElement element: children){
+					if(element.contains(x, y)){
+						MouseEvent event = new MouseUpEvent(element, x, y);
+						element.fireMouseEvent(event);
+					}
+				}
+			}
+		});
+		
+		this.moveListeners.add(new CanvasMouseMoveListener() {
+			
+			public void mouseMove(int x, int y) {
+				for(UIElement element: children){
+					if(element.contains(x, y)){
+						MouseEvent event = new MouseMoveEvent(element, x, y);
+						element.fireMouseEvent(event);
+					}
+				}
+			}
+		});
+	}
 
 	public void createLinearGradient(String name, double x0, double y0,
 			double x1, double y1) {
@@ -434,7 +485,11 @@ public class Canvas extends AbstractComponent {
 				fireMouseDown(x, y);
 			} else if (eventtype.equals("mouseup")) {
 				fireMouseUp(x, y);
-			} else {
+			} else if (eventtype.equals("mousemove")) {
+//				Integer x2 = (Integer) variables.get("mx2");
+//				Integer y2 = (Integer) variables.get("my2");
+				fireMouseMove(x, y);
+			}else {
 				System.err.println("Unknown event type: " + eventtype);
 			}
 		}
@@ -508,7 +563,7 @@ public class Canvas extends AbstractComponent {
 	}
 
 	public interface CanvasMouseUpListener {
-		public void mouseDown(int x, int y);
+		public void mouseUp(int x, int y);
 	}
 
 	public void addListener(CanvasMouseUpListener listener) {
@@ -525,7 +580,43 @@ public class Canvas extends AbstractComponent {
 
 	private void fireMouseUp(int x, int y) {
 		for (CanvasMouseUpListener listener : upListeners) {
-			listener.mouseDown(x, y);
+			listener.mouseUp(x, y);
 		}
+	}
+	
+	public interface CanvasMouseMoveListener {
+		public void mouseMove(int x, int y);
+	}
+
+	public void addListener(CanvasMouseMoveListener listener) {
+		if (!moveListeners.contains(listener)) {
+			moveListeners.add(listener);
+		}
+	}
+
+	public void removeListener(CanvasMouseMoveListener listener) {
+		if (moveListeners.contains(listener)) {
+			moveListeners.remove(listener);
+		}
+	}
+
+	private void fireMouseMove(int x, int y) {
+		for (CanvasMouseMoveListener listener : moveListeners) {
+			listener.mouseMove(x, y);
+		}
+	}
+	
+	public List<UIElement> getChildren(){
+		return this.children;
+	}
+	
+	public int addChild(UIElement child){
+		int index = this.children.size();
+		if(this.childrenMap.containsKey(child.getId())){
+			return -1;
+		}
+		this.children.add(child);
+		this.childrenMap.put(child.getId(), child);
+		return index;
 	}
 }

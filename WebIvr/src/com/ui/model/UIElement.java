@@ -3,7 +3,8 @@
  */
 package com.ui.model;
 
-import com.google.gwt.touch.client.Point;
+import com.ui.event.MouseEvent;
+import com.vaadin.ui.Component.Listener;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
@@ -30,4 +31,8 @@ public interface UIElement {
 	public String getId();
 	
 	public boolean contains(double x, double y);
+	
+	public void addListener(Listener listener);
+	
+	public void fireMouseEvent(MouseEvent event);
 }
