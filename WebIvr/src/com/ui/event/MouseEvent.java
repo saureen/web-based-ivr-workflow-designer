@@ -11,9 +11,9 @@ import java.util.EventObject;
  */
 public abstract class MouseEvent extends EventObject {
 
-	public static enum Types{UP, DOWN, MOVE};
+	public static enum Type{UP, DOWN, MOVE};
 	
-	protected Types type;
+	protected Type type;
 	
 	/**
 	 * @param source
@@ -22,7 +22,7 @@ public abstract class MouseEvent extends EventObject {
 		super(source);
 	}
 
-	public MouseEvent.Types getType() {
+	public MouseEvent.Type getType() {
 		return type;
 	}
 	

@@ -32,7 +32,15 @@ public interface UIElement {
 	
 	public boolean contains(double x, double y);
 	
-	public void addListener(Listener listener);
+	public void addListener(Listener listener, MouseEvent.Type eventType);
 	
 	public void fireMouseEvent(MouseEvent event);
+	
+	public boolean isSelected();
+	
+	public void setSelected(boolean selected);
+	
+	public boolean isPressed();
+	
+	public void setPressed(boolean pressed);
 }

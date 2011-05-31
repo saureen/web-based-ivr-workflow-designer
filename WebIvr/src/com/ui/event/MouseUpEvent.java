@@ -20,7 +20,9 @@ public class MouseUpEvent extends MouseEvent {
 	 */
 	public MouseUpEvent(UIElement source, int x, int y) {
 		super(source);
-		this.type = Types.UP;
+		this.type = Type.UP;
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getX() {

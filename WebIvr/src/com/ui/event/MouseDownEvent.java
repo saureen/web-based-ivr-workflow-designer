@@ -20,7 +20,9 @@ public class MouseDownEvent extends MouseEvent {
 	 */
 	public MouseDownEvent(UIElement source, int x, int y) {
 		super(source);
-		this.type = MouseEvent.Types.DOWN;
+		this.type = MouseEvent.Type.DOWN;
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getX() {
