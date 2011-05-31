@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : sample-workflow.xml.xml
+    Created on : March 24, 2011, 12:55 AM
+    Author     : swoosh
+    Description:
+        Purpose of the document follows.
+-->
+
+<workflow name="Simple Workflow" start="welcome">
+    <description><![CDATA[ Demonstrate as simple workflow that accepts input from user and plays appropriate greeting.]]></description>
+
+    <step name="welcome" lang="">
+        <start-action>welcome-menu</start-action>
+        <select length="1" ends-with="" timeout-action="no-input-action"
+            invalid-select-action="invalid-select-action" repeat-key="*" repeat-action="select-menu">
+            <option name="hindi" onselect="hindi-action">1</option>
+            <option name="english" onselect="english-action">2</option>
+        </select>
+        <global-params>
+            <timeout>10</timeout>
+            <max-tries>3</max-tries>
+        </global-params>
+        <actions>
+            <action name="welcome-menu">
+                <params>
+                    <timeout>10</timeout>
+                    <max-tries>2</max-tries>
+                </params>
+                <play>welcomeToSimpleWorkflowApp</play>
+                <goto>
+                    <action-name>select-menu</action-name>
+                </goto>
+            </action>
+            <action name="select-menu">
+                <play>selectLanguage</play>
+            </action>
+            <action name="hindi-action">
+                <play>inputAccepted</play>
+                <goto>
+                    <step-name>echo</step-name>
+                    <step-lang>en</step-lang>
+                </goto>
+            </action>
+            <action name="english-action">
+                <play>inputAccepted</play>
+                <goto>
+                    <step-name>echo</step-name>
+                    <step-lang>hi</step-lang>
+                </goto>
+            </action>
+            <action name="invalid-select-action">
+                <play>invalidOption</play>
+                <play>tryAgain</play>
+                <play>selectLanguage</play>
+            </action>
+            <action name="no-input-action">
+                <play>noInput</play>
+                <play>selectLanguage</play>
+            </action>
+        </actions>
+    </step>
+
+    <step name="echo" lang="en">
+        <start-action>menu</start-action>
+        <select length="4" endsWith="" timeout-action="no-input-action"
+            invalid-select-action="invalid-select-action" onselect="echo" repeat-key="*" repeat-action="menu"></select>
+        <global-params>
+            <timeout>10</timeout>
+            <max-tries>3</max-tries>
+        </global-params>
+        <actions>
+            <action name="menu">
+                <play>pleaseEnterYourCode</play>
+            </action>
+            <action name="echo">
+                <play>youEntered</play>
+                <play-digits>${input}</play-digits>
+                <goto>
+                    <step-name>hangup</step-name>
+                    <step-lang>${lang}</step-lang>
+                </goto>
+            </action>
+            <action name="invalid-select-action">
+                <play>invalidOption</play>
+                <play>tryAgain</play>
+                <play>selectLanguage</play>
+            </action>
+            <action name="no-input-action">
+                <play>noInput</play>
+                <play>selectLanguage</play>
+            </action>
+        </actions>
+    </step>
+
+    <step name="end">
+        <start-action>menu</start-action>
+        <actions>
+            <action name="menu">
+                <play>goodBye</play>
+                <hangup></hangup>
+            </action>
+        </actions>
+    </step>
+</workflow>

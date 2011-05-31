@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://localhost:3306/ivrdb</value>
+        </property>
+        <property name="username">
+            <value>ivr</value>
+        </property>
+        <property name="password">
+            <value>test</value>
+        </property>
+    </bean>
+
+    <bean id="factory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>hibernate.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sessionFactory" ref="factory"/>
+    </bean>
+
+    <tx:advice id="defaultTxAdvice">
+        <tx:attributes>
+            <tx:method name="find*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="defaultServiceOperation"
+                    expression="execution(* com.velocity.ivr.dao.*Dao.*(..))"/>
+                    
+        <aop:advisor pointcut-ref="defaultServiceOperation" advice-ref="defaultTxAdvice"/>
+    </aop:config>
+
+    <bean id="callDetailsDao" class="com.velocity.ivr.dao.CallDetailsDao">
+        <property name="sessionFactory" ref="factory"/>
+    </bean>
+
+    <bean id="callLogDao" class="com.velocity.ivr.dao.CallLogDao">
+        <property name="sessionFactory" ref="factory"/>
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="username" value="ivr.velocity@gmail.com" />
+        <property name="password" value="test@123" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.user">ivr.velocity@gmail.com</prop>
+                <prop key="mail.smtp.password">test@123</prop>
+                <prop key="mail.smtp.host">smtp.gmail.com</prop>
+                <prop key="mail.smtp.port">587</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+            resource.loader=class
+            class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+
+    <bean id="mailService" class="com.velocity.ivr.mail.MailService">
+        <property name="mailSender" ref="mailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
+    </bean>
+
+    <bean id="scpUserInfo" class="com.velocity.ivr.scp.ScpUserInfo">
+        <property name="user" value="root"/>
+        <property name="password" value="test123"/>
+        <property name="passphrase" value=""/>
+    </bean>
+   
+    <bean id="scpService" class="com.velocity.ivr.scp.ScpService">
+        <property name="host" value="kapil.homelinux.com"/>
+        <property name="port" value="22"/>
+        <property name="userInfo" ref="scpUserInfo"/>
+    </bean>
+
+    <bean id="ivrConfig" class="com.velocity.ivr.asterisk.IvrConfig">
+        <property name="welcome" value="welcome"/>
+        <property name="langMenu" value="lang-menu"/>
+        <property name="invalidSelection" value="invalid-selection-"/>
+        <property name="exceededTries" value="exceeded-num-tries-"/>
+        <property name="instructions" value="instructions-"/>
+        <property name="recordInstructions" value="record-instructions-"/>
+        <property name="recordError" value="recording-error"/>
+        <property name="thankNote" value="thank-note-"/>
+        <property name="callIdQueryInstru" value="instructions-to-enter-callid-"/>
+        <property name="sysErr" value="system-error-"/>
+        <property name="notFound" value="not-found-"/>
+        <property name="statusIs" value="status-is-"/>
+        
+        <property name="recordFolder" value="/var/lib/asterisk/sounds/recordings/"/>
+        <property name="recordFile" value="record-"/>
+        <property name="recordFormat" value="wav"/>
+        <property name="recordEscape" value="#"/>
+        <property name="notifyTo" value="kapildverma@gmail.com"/>
+        <property name="mailTemplate" value="com/velocity/ivr/mail/mail-template.vm"/>
+        <property name="mailSubject" value="Call from "/>
+        <property name="maxTries" value="3"/>
+        <property name="inputTimeOut" value="10000"/>
+    </bean>
+
+    <bean id="workflowReader" class="com.velocity.ivr.workflow.xml.DefaultXmlReader">
+        
+    </bean>
+
+    <bean id="workflow" class="com.velocity.ivr.workflow.impl.DefaultWorkflow">
+        <property name="defnXml">
+            <value>config/asterisk/sample-workflow.xml</value>
+        </property>
+        <property name="reader" ref="workflowReader"></property>
+    </bean>
+</beans>
