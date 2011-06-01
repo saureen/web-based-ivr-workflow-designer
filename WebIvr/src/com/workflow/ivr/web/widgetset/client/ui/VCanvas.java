@@ -25,6 +25,7 @@ import com.google.gwt.event.dom.client.TouchEndHandler;
 import com.google.gwt.event.dom.client.TouchMoveEvent;
 import com.google.gwt.event.dom.client.TouchMoveHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.vaadin.terminal.gwt.client.ApplicationConnection;
@@ -62,8 +63,8 @@ public class VCanvas extends Composite implements Paintable {
 	static final int refreshRate = 25;
 
 	// canvas size, in px
-	static final int height = 400;
-	static final int width = 400;
+	static int height = 400;
+	static int width = 400;
 	
 	Context2d context;
 	Context2d backBufferContext;
@@ -79,16 +80,19 @@ public class VCanvas extends Composite implements Paintable {
 	public VCanvas() {
 		super();
 
+		width = Window.getClientWidth();
+		height = Window.getClientWidth();
+		
 		canvas = Canvas.createIfSupported();
 		backBuffer = Canvas.createIfSupported();
 
 		// init the canvases
-		canvas.setWidth(width + "px");
-		canvas.setHeight(height + "px");
-		canvas.setCoordinateSpaceWidth(width);
-		canvas.setCoordinateSpaceHeight(height);
-		backBuffer.setCoordinateSpaceWidth(width);
-		backBuffer.setCoordinateSpaceHeight(height);
+//		canvas.setWidth(width + "px");
+//		canvas.setHeight(height + "px");
+//		canvas.setCoordinateSpaceWidth(canvas);
+//		canvas.setCoordinateSpaceHeight(height);
+//		backBuffer.setCoordinateSpaceWidth(width);
+//		backBuffer.setCoordinateSpaceHeight(height);
 //		RootPanel.get(holderId).add(canvas);
 		context = canvas.getContext2d();
 		backBufferContext = backBuffer.getContext2d();
