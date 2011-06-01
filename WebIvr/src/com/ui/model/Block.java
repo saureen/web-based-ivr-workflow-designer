@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import com.ui.canvas.Canvas;
+import com.ui.canvas.Point;
 import com.ui.event.MouseEvent;
 import com.ui.event.MouseEvent.Type;
 import com.vaadin.ui.Component.Event;
@@ -22,10 +23,8 @@ import com.vaadin.ui.Component.Listener;
 public class Block implements UIElement {
 
 	private String id;
-	private double startX;
-	private double startY;
-	private double endX;
-	private double endY;
+	private Point start;
+	private Point end;
 	
 	private Canvas canvas;
 	private UIElement next;
@@ -34,19 +33,22 @@ public class Block implements UIElement {
 	private boolean selected;
 	private boolean pressed;
 	
+	MouseEventListener listener;
+	
 	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 	
 	
-	public Block(Canvas canvas, double startX, double startY, double endX, double endY){
+	public Block(Canvas canvas, Point start, Point end){
 		this.canvas = canvas;
 		
-		this.startX = startX;
-		this.startY = startY;
-		this.endX = endX;
-		this.endY = endY;
+		this.start = start;
+		this.end = end;
 		this.selected = false;
 		
-		MouseEventListener listener = new MouseEventListener() {
+		listener = new MouseEventListener() {
+			
+			Point downPoint;
+			Point upPoint;
 			
 			public void componentEvent(Event event) {
 				
@@ -56,24 +58,23 @@ public class Block implements UIElement {
 				Block source = (Block)event.getSource();
 				
 				if(event.getType() == MouseEvent.Type.DOWN){
+					downPoint = event.getPoint();
 					source.setPressed(true);
 				}else if(event.getType() == MouseEvent.Type.UP){
+					upPoint = event.getPoint();
 					source.setSelected(true);
 					source.setPressed(false);
 				}else if(event.getType() == MouseEvent.Type.MOVE){
 					if(source.isPressed()){
-						double x = event.getX();
-						double y = event.getY();
+						Point p = event.getPoint();
 						
-						double deltaX = x-getCenterX();
-						double deltaY = y-getCenterY();
+						Point delta = Point.sub(p, downPoint);
 						
-						source.startX += deltaX;
-						source.startY += deltaY;
+						source.start.add(delta);
 						
-						source.endX += deltaX;
-						source.endY += deltaY;
+						source.end.add(delta);
 						
+						downPoint = p;
 						source.draw();
 					}
 				}else{
@@ -103,8 +104,8 @@ public class Block implements UIElement {
 	 * @see com.workflow.ivr.web.model.UIElement#draw()
 	 */
 	public void draw() {
-		canvas.rect(startX, startY, endX-startX, endY-startY);
-		canvas.strokeRect(startX, startY, endX-startX, endY-startY);
+		canvas.rect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+		canvas.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
 		canvas.addChild(this);
 	}
 
@@ -135,20 +136,14 @@ public class Block implements UIElement {
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#getCenterX()
 	 */
-	public double getCenterX() {
-		return (startX + endX)/2;
+	public Point getCenter() {
+		return Point.mult(Point.add(start, end), 0.5);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.UIElement#getCenterY()
-	 */
-	public double getCenterY() {
-		return (startY + endY)/2;
-	}
-	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#moveTo(double, double)
 	 */
-	public void moveTo(double x, double y) {
+	public void moveTo(Point p) {
 		
 	}
 	/**
@@ -167,8 +162,8 @@ public class Block implements UIElement {
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#contains(double, double)
 	 */
-	public boolean contains(double x, double y) {
-		return startX <= x && x <= endX && startY <= y && y <= endY;
+	public boolean contains(Point p) {
+		return start.getX() <= p.getX() && p.getX() <= end.getX() && start.getY() <= p.getY() && p.getY() <= end.getY();
 	}
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#addListener(com.vaadin.ui.Component.Listener)

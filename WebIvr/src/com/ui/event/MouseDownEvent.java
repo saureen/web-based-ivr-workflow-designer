@@ -3,6 +3,7 @@
  */
 package com.ui.event;
 
+import com.ui.canvas.Point;
 import com.ui.model.UIElement;
 
 
@@ -12,25 +13,19 @@ import com.ui.model.UIElement;
  */
 public class MouseDownEvent extends MouseEvent {
 
-	private int x;
-	private int y;
+	private Point p;
 	
 	/**
 	 * @param source
 	 */
-	public MouseDownEvent(UIElement source, int x, int y) {
+	public MouseDownEvent(UIElement source, Point p) {
 		super(source);
 		this.type = MouseEvent.Type.DOWN;
-		this.x = x;
-		this.y = y;
+		this.p = p;
 	}
 
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
+	public Point getPoint() {
+		return this.p;
 	}
 
 }

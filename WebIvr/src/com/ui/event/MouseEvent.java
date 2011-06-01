@@ -5,6 +5,8 @@ package com.ui.event;
 
 import java.util.EventObject;
 
+import com.ui.canvas.Point;
+
 /**
  * @author kapil - kapil.verma@globallogic.com
  *
@@ -26,7 +28,5 @@ public abstract class MouseEvent extends EventObject {
 		return type;
 	}
 	
-	public abstract int getX();
-	
-	public abstract int getY();
+	public abstract Point getPoint();
 }
