@@ -3,6 +3,7 @@
  */
 package com.ui.model;
 
+import com.ui.canvas.Canvas;
 import com.ui.canvas.Point;
 import com.ui.event.MouseEvent;
 import com.vaadin.ui.Component.Listener;
@@ -13,7 +14,7 @@ import com.vaadin.ui.Component.Listener;
  */
 public interface UIElement {
 	
-	public void draw();
+	public void draw(Canvas canvas);
 	
 	public UIElement getNext();
 	

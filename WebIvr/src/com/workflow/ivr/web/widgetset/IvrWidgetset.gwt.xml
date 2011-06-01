@@ -3,7 +3,6 @@
 <module>
 	<inherits name="com.vaadin.terminal.gwt.DefaultWidgetSet" />
 
-	<inherits name="com.google.gwt.widgetideas.GWTCanvas" />
     <!--
      Uncomment the following to compile the widgetset for one browser only.
      This can reduce the GWT compilation time significantly when debugging.
