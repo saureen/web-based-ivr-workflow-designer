@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import com.ui.canvas.Canvas;
 import com.ui.canvas.Point;
 import com.ui.event.MouseEvent;
@@ -20,13 +19,13 @@ import com.vaadin.ui.Component.Listener;
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-public class Block implements UIElement {
+public class Rect implements UIElement {
 
 	private String id;
 	private Point start;
+
 	private Point end;
 	
-	private Canvas canvas;
 	private UIElement next;
 	private UIElement prev;
 	
@@ -41,13 +40,14 @@ public class Block implements UIElement {
 	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 	
 	
-	public Block(Canvas canvas, Point start, Point end){
-		this.canvas = canvas;
+	public Rect(Point start, Point end){
 		
 		this.start = start;
 		this.end = end;
 		this.selected = false;
 		this.borderWidth = -1;
+		this.fillColor = "";
+		this.color = "";
 		
 		listener = new MouseEventListener() {
 			
@@ -59,7 +59,7 @@ public class Block implements UIElement {
 			}
 			
 			public void onMouseEvent(MouseEvent event) {
-				Block source = (Block)event.getSource();
+				Rect source = (Rect)event.getSource();
 				
 				if(event.getType() == MouseEvent.Type.DOWN){
 					downPoint = event.getPoint();
@@ -107,23 +107,29 @@ public class Block implements UIElement {
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#draw()
 	 */
-	public void draw() {
-		canvas.saveContext();
-		if(this.color != null){
-			canvas.setStrokeColor(color);
-		}
+	public void draw(Canvas canvas) {
+//		canvas.saveContext();
 		
-		if(this.borderWidth > -1){
-			canvas.setLineWidth(borderWidth);
-		}
+		canvas.drawRect(this);
 		
-		canvas.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-//		canvas.rect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-		if(this.fillColor != null){
-			canvas.setFillStyle(fillColor);
-			canvas.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-		}
-		canvas.restoreContext();
+//		canvas.beginPath();
+//		if(this.color != null){
+//			canvas.setStrokeColor(color);
+//		}
+//		
+//		if(this.borderWidth > -1){
+//			canvas.setLineWidth(borderWidth);
+//		}
+//		
+//		canvas.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+//		canvas.closePath();
+////		canvas.rect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+//		if(this.fillColor != null){
+//			canvas.setFillStyle(fillColor);
+////			canvas.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+//			canvas.fill();
+//		}
+//		canvas.restoreContext();
 	}
 
 	/* (non-Javadoc)
@@ -229,7 +235,7 @@ public class Block implements UIElement {
 	}
 	
 	public String getColor(){
-		return this.getColor();
+		return this.color;
 	}
 
 	/**
@@ -244,6 +250,23 @@ public class Block implements UIElement {
 	 */
 	public int getBorderWidth() {
 		return borderWidth;
+	}
+	
+
+	public Point getStart() {
+		return start;
+	}
+
+	public void setStart(Point start) {
+		this.start = start;
+	}
+
+	public Point getEnd() {
+		return end;
+	}
+
+	public void setEnd(Point end) {
+		this.end = end;
 	}
 
 }

@@ -11,6 +11,7 @@ import com.ui.event.MouseDownEvent;
 import com.ui.event.MouseEvent;
 import com.ui.event.MouseMoveEvent;
 import com.ui.event.MouseUpEvent;
+import com.ui.model.Rect;
 import com.ui.model.UIElement;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
@@ -86,7 +87,7 @@ public class Canvas extends AbstractComponent {
 		TimerTask task = new TimerTask(){
 			@Override
 			public void run() {
-				doUpdate();
+//				doUpdate();
 			}
 		};
 		
@@ -100,7 +101,7 @@ public class Canvas extends AbstractComponent {
 		this.clear();
 		
 		for(UIElement element : children){
-			element.draw();
+			element.draw(this);
 		}
 //	    backBufferContext.setFillStyle(redrawColor);
 //	    backBufferContext.fillRect(0, 0, width, height);
@@ -467,6 +468,21 @@ public class Canvas extends AbstractComponent {
 
 		requestRepaint();
 	}
+	
+	public void drawRect(Rect block){
+//		reset();
+		Map<String, Object> arguments = new HashMap<String, Object>();
+		arguments.put("strokecolor", block.getColor());
+		arguments.put("strokewidth", block.getBorderWidth());
+		arguments.put("x", block.getStart().getX());
+		arguments.put("y", block.getStart().getY());
+		arguments.put("w", block.getEnd().getX() - block.getStart().getX());
+		arguments.put("h", block.getEnd().getY() - block.getStart().getY());
+		arguments.put("fillstyle", block.getFillColor());
+		arguments.put("command", "drawrect");
+		commands.add(arguments);
+		requestRepaint();
+	}
 
 	public void reset() {
 		commands.clear();
@@ -649,7 +665,6 @@ public class Canvas extends AbstractComponent {
 			child.setId(index + "");
 		}
 		this.childrenMap.put(child.getId(), child);
-		child.draw();
 		return index;
 	}
 }

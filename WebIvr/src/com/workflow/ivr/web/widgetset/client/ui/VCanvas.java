@@ -310,7 +310,9 @@ public class VCanvas extends Composite implements Paintable {
 				handleStrokeRect(childUIDL);
 			} else if (command.equals("transform")) {
 				handleTransform(childUIDL);
-			} else {
+			} else if (command.equals("drawrect")){
+				handleDrawRect(childUIDL);
+			}else {
 				System.err.println("Invalid command: " + command);
 			}
 		}
@@ -602,6 +604,50 @@ public class VCanvas extends Composite implements Paintable {
 		double y = uidl.getDoubleAttribute("y");
 
 		context.scale(x, y);
+	}
+	
+	private void handleDrawRect(UIDL uidl){
+		context.save();
+//		String strokecolor = uidl.getStringAttribute("strokecolor");
+//		double strokewidth = uidl.getDoubleAttribute("strokewidth");
+//		double x = uidl.getDoubleAttribute("x");
+//		double y = uidl.getDoubleAttribute("y");
+//		double w = uidl.getDoubleAttribute("w");
+//		double h = uidl.getDoubleAttribute("h");
+//		String fillStyleColor = uidl.getStringAttribute("fillcolor");
+//		
+//
+//		if(strokecolor.length() > 0){
+//			context.setStrokeStyle(strokecolor);
+//		}
+//		if(strokewidth > 0){
+//			context.setLineWidth(strokewidth);
+//		}
+//		if(fillStyleColor.length() > 0){
+//			context.setFillStyle(fillStyleColor);
+//		}
+//		
+//		context.beginPath();
+//		context.strokeRect(x, y, w, h);
+//		context.closePath();
+//		
+//		if(fillStyleColor.length() > 0){
+//			context.fill();
+//		}
+		context.setStrokeStyle("#009d33");
+		context.setLineWidth(6);
+		context.setFillStyle("#ed9d33");
+		context.beginPath();
+		context.strokeRect(200, 200, 400, 300);
+		context.closePath();
+		context.fill();
+		
+		context.setFillStyle("#ed9d33");
+	    context.beginPath();
+	    context.arc(100, 100, 9, 0, Math.PI * 2.0, true);
+	    context.closePath();
+	    context.fill();
+		context.restore();
 	}
 
 	@Override
