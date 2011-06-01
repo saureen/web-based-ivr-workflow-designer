@@ -3,6 +3,7 @@
  */
 package com.ui.model;
 
+import com.ui.canvas.Point;
 import com.ui.event.MouseEvent;
 import com.vaadin.ui.Component.Listener;
 
@@ -22,15 +23,13 @@ public interface UIElement {
 	
 	public void setPrevious(UIElement prev);
 	
-	public void moveTo(double x, double y);
+	public void moveTo(Point p);
 	
-	public double getCenterX();
-	
-	public double getCenterY();
+	public Point getCenter();
 	
 	public String getId();
 	
-	public boolean contains(double x, double y);
+	public boolean contains(Point p);
 	
 	public void addListener(Listener listener, MouseEvent.Type eventType);
 	

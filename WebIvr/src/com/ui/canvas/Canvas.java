@@ -47,10 +47,10 @@ public class Canvas extends AbstractComponent {
 		
 		this.downListeners.add(new CanvasMouseDownListener() {
 			
-			public void mouseDown(int x, int y) {
+			public void mouseDown(Point p) {
 				for(UIElement element: children){
-					if(element.contains(x, y)){
-						MouseEvent event = new MouseDownEvent(element, x, y);
+					if(element.contains(p)){
+						MouseEvent event = new MouseDownEvent(element, p);
 						element.fireMouseEvent(event);
 					}
 				}
@@ -59,10 +59,10 @@ public class Canvas extends AbstractComponent {
 		
 		this.upListeners.add(new CanvasMouseUpListener() {
 			
-			public void mouseUp(int x, int y) {
+			public void mouseUp(Point p) {
 				for(UIElement element: children){
-					if(element.contains(x, y)){
-						MouseEvent event = new MouseUpEvent(element, x, y);
+					if(element.contains(p)){
+						MouseEvent event = new MouseUpEvent(element, p);
 						element.fireMouseEvent(event);
 					}
 				}
@@ -71,10 +71,10 @@ public class Canvas extends AbstractComponent {
 		
 		this.moveListeners.add(new CanvasMouseMoveListener() {
 			
-			public void mouseMove(int x, int y) {
+			public void mouseMove(Point p) {
 				for(UIElement element: children){
-					if(element.contains(x, y)){
-						MouseEvent event = new MouseMoveEvent(element, x, y);
+					if(element.contains(p)){
+						MouseEvent event = new MouseMoveEvent(element, p);
 						element.fireMouseEvent(event);
 					}
 				}
@@ -469,7 +469,6 @@ public class Canvas extends AbstractComponent {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void changeVariables(Object source, Map variables) {
 		if (variables.containsKey("sizeChanged")) {
@@ -480,15 +479,15 @@ public class Canvas extends AbstractComponent {
 			String eventtype = (String) variables.get("event");
 			Integer x = (Integer) variables.get("mx");
 			Integer y = (Integer) variables.get("my");
-
+			Point p = new Point(x, y);
 			if (eventtype.equals("mousedown")) {
-				fireMouseDown(x, y);
+				fireMouseDown(p);
 			} else if (eventtype.equals("mouseup")) {
-				fireMouseUp(x, y);
+				fireMouseUp(p);
 			} else if (eventtype.equals("mousemove")) {
 //				Integer x2 = (Integer) variables.get("mx2");
 //				Integer y2 = (Integer) variables.get("my2");
-				fireMouseMove(x, y);
+				fireMouseMove(p);
 			}else {
 				System.err.println("Unknown event type: " + eventtype);
 			}
@@ -541,7 +540,7 @@ public class Canvas extends AbstractComponent {
 	}
 
 	public interface CanvasMouseDownListener {
-		public void mouseDown(int x, int y);
+		public void mouseDown(Point p);
 	}
 
 	public void addListener(CanvasMouseDownListener listener) {
@@ -556,14 +555,14 @@ public class Canvas extends AbstractComponent {
 		}
 	}
 
-	private void fireMouseDown(int x, int y) {
+	private void fireMouseDown(Point p) {
 		for (CanvasMouseDownListener listener : downListeners) {
-			listener.mouseDown(x, y);
+			listener.mouseDown(p);
 		}
 	}
 
 	public interface CanvasMouseUpListener {
-		public void mouseUp(int x, int y);
+		public void mouseUp(Point p);
 	}
 
 	public void addListener(CanvasMouseUpListener listener) {
@@ -578,14 +577,14 @@ public class Canvas extends AbstractComponent {
 		}
 	}
 
-	private void fireMouseUp(int x, int y) {
+	private void fireMouseUp(Point p) {
 		for (CanvasMouseUpListener listener : upListeners) {
-			listener.mouseUp(x, y);
+			listener.mouseUp(p);
 		}
 	}
 	
 	public interface CanvasMouseMoveListener {
-		public void mouseMove(int x, int y);
+		public void mouseMove(Point p);
 	}
 
 	public void addListener(CanvasMouseMoveListener listener) {
@@ -600,9 +599,9 @@ public class Canvas extends AbstractComponent {
 		}
 	}
 
-	private void fireMouseMove(int x, int y) {
+	private void fireMouseMove(Point p) {
 		for (CanvasMouseMoveListener listener : moveListeners) {
-			listener.mouseMove(x, y);
+			listener.mouseMove(p);
 		}
 	}
 	
