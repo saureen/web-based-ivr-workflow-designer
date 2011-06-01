@@ -29,6 +29,8 @@ public interface UIElement {
 	
 	public String getId();
 	
+	public void setId(String id);
+	
 	public boolean contains(Point p);
 	
 	public void addListener(Listener listener, MouseEvent.Type eventType);
@@ -42,4 +44,16 @@ public interface UIElement {
 	public boolean isPressed();
 	
 	public void setPressed(boolean pressed);
+	
+	public String getColor();
+	
+	public void setColor(String color);
+	
+	public String getFillColor();
+	
+	public void setFillColor(String fillColor);
+	
+	public int getBorderWidth();
+	
+	public void setBorderWidth(int width);
 }
