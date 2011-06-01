@@ -32,6 +32,9 @@ public class Block implements UIElement {
 	
 	private boolean selected;
 	private boolean pressed;
+	private String fillColor;
+	private String color;
+	private int borderWidth;
 	
 	MouseEventListener listener;
 	
@@ -44,6 +47,7 @@ public class Block implements UIElement {
 		this.start = start;
 		this.end = end;
 		this.selected = false;
+		this.borderWidth = -1;
 		
 		listener = new MouseEventListener() {
 			
@@ -75,7 +79,7 @@ public class Block implements UIElement {
 						source.end.add(delta);
 						
 						downPoint = p;
-						source.draw();
+//						source.draw();
 					}
 				}else{
 					System.err.println("Unknown event type: " + event.getType());
@@ -104,9 +108,22 @@ public class Block implements UIElement {
 	 * @see com.workflow.ivr.web.model.UIElement#draw()
 	 */
 	public void draw() {
-		canvas.rect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+		canvas.saveContext();
+		if(this.color != null){
+			canvas.setStrokeColor(color);
+		}
+		
+		if(this.borderWidth > -1){
+			canvas.setLineWidth(borderWidth);
+		}
+		
 		canvas.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-		canvas.addChild(this);
+//		canvas.rect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+		if(this.fillColor != null){
+			canvas.setFillStyle(fillColor);
+			canvas.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+		}
+		canvas.restoreContext();
 	}
 
 	/* (non-Javadoc)
@@ -197,6 +214,36 @@ public class Block implements UIElement {
 	
 	public void setPressed(boolean pressed) {
 		this.pressed = pressed;
+	}
+	
+	public void setFillColor(String fillColor){
+		this.fillColor = fillColor;
+	}
+	
+	public String getFillColor(){
+		return this.fillColor;
+	}
+	
+	public void setColor(String color){
+		this.color = color;
+	}
+	
+	public String getColor(){
+		return this.getColor();
+	}
+
+	/**
+	 * @param borderWidth the borderWidth to set
+	 */
+	public void setBorderWidth(int borderWidth) {
+		this.borderWidth = borderWidth;
+	}
+
+	/**
+	 * @return the borderWidth
+	 */
+	public int getBorderWidth() {
+		return borderWidth;
 	}
 
 }

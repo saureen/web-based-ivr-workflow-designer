@@ -115,7 +115,7 @@ public class WorkflowDesigner extends CustomComponent {
 			}
 		});
 		
-		canvas.addListener(new Canvas.CanvasMouseUpListener() {
+		/*canvas.addListener(new Canvas.CanvasMouseUpListener() {
 
 			public void mouseUp(Point p) {
 				getWindow().showNotification(
@@ -129,14 +129,9 @@ public class WorkflowDesigner extends CustomComponent {
 				getWindow().showNotification(
 						"Mouse pressed at (" + p.getX() + "," + p.getY() + ")");
 			}
-		});
+		});*/
 
-		canvas.saveContext();
-		canvas.clear();
 //		canvas.translate(0, 0);
-		canvas.setStrokeColor("#5285b1");
-		canvas.setFillStyle(158,192,222);
-		canvas.setLineWidth(3);
 		
 	/*
 		canvas.scale(1.6f, 1.6f);
@@ -160,18 +155,21 @@ public class WorkflowDesigner extends CustomComponent {
 		*/
 		
 		drawStep();
-		canvas.restoreContext();
 		//Custom code end
 	}
 	
 	private void drawStep(){
 		Block block = new Block(canvas, new Point(100, 200), new Point(300, 400));
-		block.draw();
-//		block = new Block(canvas, 450, 550, 425, 525);
-//		block.draw();
-//		block = new Block(canvas, 600, 600, 700, 700);
-//		block.draw();
-		canvas.fill();
+		block.setColor("#528200");
+		block.setBorderWidth(1);
+		canvas.addChild(block);
+		block = new Block(canvas, new Point(450, 550), new Point(425, 525));
+		canvas.addChild(block);
+		block = new Block(canvas, new Point(600, 600), new Point(700, 700));
+		block.setColor("#5282ff");
+		block.setFillColor("#008231");
+		block.setBorderWidth(6);
+		canvas.addChild(block);
 	}
 	
 	private void createWorkflowMenu(MenuBar.MenuItem menuItem){

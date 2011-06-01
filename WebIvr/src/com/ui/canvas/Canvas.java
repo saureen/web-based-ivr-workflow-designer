@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.ui.event.MouseDownEvent;
 import com.ui.event.MouseEvent;
@@ -80,6 +82,34 @@ public class Canvas extends AbstractComponent {
 				}
 			}
 		});
+		
+		TimerTask task = new TimerTask(){
+			@Override
+			public void run() {
+				doUpdate();
+			}
+		};
+		
+		// setup timer
+		Timer timer = new Timer();
+	    timer.schedule(task, 1000, 200);
+	}
+	
+	void doUpdate() {
+	    // update the back canvas
+		this.clear();
+		
+		for(UIElement element : children){
+			element.draw();
+		}
+//	    backBufferContext.setFillStyle(redrawColor);
+//	    backBufferContext.fillRect(0, 0, width, height);
+//	    logoGroup.update(mouseX, mouseY);
+//	    ballGroup.update(mouseX, mouseY);
+//	    logoGroup.draw(backBufferContext);
+//	    ballGroup.draw(backBufferContext);
+
+	    // update the front canvas
 	}
 
 	public void createLinearGradient(String name, double x0, double y0,
@@ -615,7 +645,11 @@ public class Canvas extends AbstractComponent {
 			return -1;
 		}
 		this.children.add(child);
+		if(child.getId() == null){
+			child.setId(index + "");
+		}
 		this.childrenMap.put(child.getId(), child);
+		child.draw();
 		return index;
 	}
 }
