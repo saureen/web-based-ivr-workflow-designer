@@ -87,12 +87,12 @@ public class VCanvas extends Composite implements Paintable {
 		backBuffer = Canvas.createIfSupported();
 
 		// init the canvases
-//		canvas.setWidth(width + "px");
-//		canvas.setHeight(height + "px");
-//		canvas.setCoordinateSpaceWidth(canvas);
-//		canvas.setCoordinateSpaceHeight(height);
-//		backBuffer.setCoordinateSpaceWidth(width);
-//		backBuffer.setCoordinateSpaceHeight(height);
+		canvas.setWidth(width + "px");
+		canvas.setHeight(height + "px");
+		canvas.setCoordinateSpaceWidth(width);
+		canvas.setCoordinateSpaceHeight(height);
+		backBuffer.setCoordinateSpaceWidth(width);
+		backBuffer.setCoordinateSpaceHeight(height);
 //		RootPanel.get(holderId).add(canvas);
 		context = canvas.getContext2d();
 		backBufferContext = backBuffer.getContext2d();
