@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vaadin.graphics.canvas.element;
+package com.ui.model;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
